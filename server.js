@@ -222,8 +222,11 @@ app.get('/borrarProyectos', (req, res) => {
 
 });
 */
-app.listen(3000, () => {
-    console.log('Express server started at port : 3000');
+
+const PORT_SERVER = process.env.PORT || 3000;
+
+app.listen(PORT_SERVER, () => {
+    console.log(`Server running on port ${PORT_SERVER}`);
 });
 
 //p.use('/employee', employeeController);
