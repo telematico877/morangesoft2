@@ -41,9 +41,9 @@ var empresasSchema = new mongoose.Schema({
         type: Date,
         default:Date.now
     },
-    activo:{
-        type:Boolean,
-        default:true
+    id_estado: { 
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "estados"
     },
     id_proyecto: { 
         type: mongoose.Schema.Types.ObjectId,

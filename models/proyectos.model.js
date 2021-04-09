@@ -17,10 +17,10 @@ var proyectosSchema = new mongoose.Schema({
         type: String,
         default: null
     },
-    activo: {
-        type:Boolean,
-        default:true
-    }
+    activo: { 
+        type: Boolean,
+        default: true
+    },
     
 },
 {timestamps:true});

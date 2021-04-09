@@ -17,9 +17,9 @@ var rolesSchema = new mongoose.Schema({
         type: String,
         default: null,
     },
-    activo: {
-        type: String,
-        default: "1",
+    id_estado: { 
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "estados"
     },
     id_proyecto: { 
         type: mongoose.Schema.Types.ObjectId, 

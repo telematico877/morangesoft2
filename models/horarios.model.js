@@ -13,9 +13,9 @@ var horariosSchema = new mongoose.Schema({
         type: Date,
         required :true
     },
-    activo:{
-        type:Boolean,
-        default:true
+    id_estado: { 
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "estados"
     },
     id_usuario: { 
         type: mongoose.Schema.Types.ObjectId,
@@ -31,4 +31,4 @@ var horariosSchema = new mongoose.Schema({
     }
 },
 {timestamps:true});
-mongoose.model('Horarios', horariosSchema);
+mongoose.model('horarios', horariosSchema);

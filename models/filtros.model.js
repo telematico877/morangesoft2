@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-var sedesSchema = new mongoose.Schema({
+var filtrosSchema = new mongoose.Schema({
     codigo: {
         type: String,
         required: true,
@@ -9,17 +9,13 @@ var sedesSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    descripcion: {
+    orden: {
         type: String,
         default:null
     },
-    url_imagen: {
+    descripcion: {
         type: String,
-        default:null        
-    },
-    id_estado: { 
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "estados"
+        default:null
     },
     id_proyecto: { 
         type: mongoose.Schema.Types.ObjectId,
@@ -27,4 +23,4 @@ var sedesSchema = new mongoose.Schema({
     }
 },
 {timestamps:true});
-mongoose.model('sedes', sedesSchema);
+mongoose.model('filtros', filtrosSchema);

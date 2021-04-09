@@ -1,36 +1,36 @@
 const mongoose = require('mongoose');
 
-var usuariosSchema = new mongoose.Schema({
+var especialidadSchema = new mongoose.Schema({
     codigo: {
         type: String,
-        required: true,
+        required: true
     },
-    usuario: {
+    nombre: {
         type: String,
-        required: true,
+        required: true
     },
-    password: {
-        type: String,
-        required: true,
-    },
-    correo:{
+    codigo_externos: {
         type: String,
         default: null
-
+    },
+    url_imagen: {
+        type: String,
+        default: null
     },
     id_proyecto: { 
         type: mongoose.Schema.Types.ObjectId,
         ref: "proyectos"
     },
+    id_sede: { 
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "sedes"
+    },
     id_estado: { 
         type: mongoose.Schema.Types.ObjectId,
         ref: "estados"
     },
-    id_rol: { 
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "roles"
-    }
- 
+
+    //no funciona la api en heroku revisa telegram
 },
-{timestams:true});
-mongoose.model('usuarios', usuariosSchema);
+{timestamps:true});
+mongoose.model('especialidad', especialidadSchema);

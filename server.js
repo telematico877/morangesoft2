@@ -6,13 +6,6 @@ const exphbs = require('express-handlebars');
 const bodyparser = require('body-parser');
 const mongoose = require('mongoose');
 
-/*const Usuarios = mongoose.model('usuarios');
-const Proyectos = mongoose.model('proyectos');
-const Roles = mongoose.model('roles');
-const Sedes = mongoose.model('sedes');
-const Horarios = mongoose.model('horarios');
-const Empresas = mongoose.model('empresas');
-*/
 
 var app = express();
 app.use(bodyparser.urlencoded({
@@ -24,7 +17,7 @@ app.engine('hbs', exphbs({ extname: 'hbs', defaultLayout: 'mainLayout', layoutsD
 app.set('view engine', 'hbs');
 
 app.get('/', (req, res) => {
-    res.send('Welcome to my API!');
+    res.send('Bienvenido al API!');
   });
  
 /* Pasar
@@ -56,33 +49,30 @@ app.get('/', (req, res) => {
     var nombrecampo="";
     var valorCampo="";
     var opcionalSet="";
-   
-    if(nombretabla!=null && nombreid!=null&& id!=null){
+    var myObj = new Object();
+    if(nombretabla!=null){
     for (var propName in req.query) {
        if (req.query.hasOwnProperty(propName) && propName!='nombretabla' && propName!='nombreid' && propName!='id') {
-        var myObj = {};
-        if(opcionalSet!='')
-           nombrecampo=nombrecampo+","+myObj[propName]+":  '"+req.query[propName]+"'";
-        else
-        nombrecampo="+"+myObj[propName]+":  '"+req.query[propName]+"'";
-             
-         }
-       }
-      var Datos={nombrecampo};
-
-      var tabla=req.query.tableName;
+        myObj[propName] =req.query[propName];
+      }
+      }
+ 
+     
+      var tabla=req.query.nombretabla;
        const esquema = mongoose.model(tabla);
-
-           //use schema.create to insert data into the db
-      esquema.create(Datos, function (error, user) {
+       
+       //use schema.create to insert data into the db
+           esquema.create(myObj, function (error, user) {
         if (error) {
-          throw error;
+          res.json({status:"error"});
         } else {
-          res.send('Registro creado!');
+          res.json({status:"success",msg:"Creado con exito"})
         }
       });
+    
+      
     }else{
-      res.send("nombreTabla, nombreid y id son oligatorios");
+      res.send("nombreTabla oligatorios");
      }
      });
    
@@ -91,28 +81,26 @@ app.get('/', (req, res) => {
      app.get('/editar', (req, res) => {
  
       var nombretabla  = req.query.nombretabla;
-      var nombreid  = req.query.nombreid;
-      var id  = req.query.id;
-  
+      var codigo =req.query.codigo;
       var datos  = [];
       var nombrecampo="";
       var valorCampo="";
       var opcionalSet="";
      
-      if(nombretabla!=null && nombreid!=null&& id!=null){
-        var tabla=req.query.tableName;
+      if(nombretabla!=null && codigo!=null){
+        var tabla=req.query.nombretabla;
          const esquema = mongoose.model(tabla);
   
              //use schema.create to insert data into the db
         esquema.findOneAndUpdate({ codigo: req.query.codigo }, req.query, { new: true }, (err, doc) => {
-          if (error) {
-            throw error;
+          if (err) {
+            res.json({status:"error"});
           } else {
-            res.send('Registro atualizado!');
+            res.json({status:"success",msg:"Actualizado con exito"})
           }
         });
       }else{
-        res.send("nombreTabla, nombreid y id son oligatorios");
+        res.send("nombreTabla, codigo son oligatorios");
        }
        });
    
@@ -126,16 +114,22 @@ app.get('/', (req, res) => {
         var nombrecampo="";
         var valorCampo="";
         var opcionalSet="";
-      
-          var tabla=req.query.tableName;
+       
+      if(nombretabla!=null && id_!=null){
+          var tabla=req.query.nombretabla;
            const esquema = mongoose.model(tabla);
     
                //use schema.create to insert data into the db
-          esquema.findByIdAndRemove(req.query.id_, (err, doc) => {
-            if (err) throw err;
-            res.send('Equipo borrado');
+          esquema.findByIdAndRemove(req.query.id, (err, doc) => {
+            if (err) res.json({status:"error"});
+            res.json({status:"success",msg:"Borrado con exito"})
+            
       
          });
+
+      }else{
+        res.send("nombreTabla, id son oligatorios");
+       }
         });
    
   /**Crear Proyecto **/
