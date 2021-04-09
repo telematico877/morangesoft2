@@ -7,11 +7,11 @@ mongodb://localhost:27017/multiempresas
 mongodb://admin:Lh68i2XFGO0RlNbT@SG-multiempresas-42954.servers.mongodirector.com:27017/admin
 */
 
-mongoose.connect('mongodb://admin:Lh68i2XFGO0RlNbT@SG-multiempresas-42954.servers.mongodirector.com:27017/admin', { useNewUrlParser: true }, (err) => {
+mongoose.connect('mongodb://localhost:27017/multiempresas', { useNewUrlParser: true }, (err) => {
     if (!err) { console.log('MongoDB Connection Succeeded.') }
     else { console.log('Error in DB connection : ' + err) }
 });
-*/
+
 
 require('./consultorio.model');
 require('./cupones.model');
